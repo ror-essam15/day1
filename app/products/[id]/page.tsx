@@ -1,11 +1,27 @@
+import React from "react";
 
-export default async function ProductDetails({ params }: { params: { id: string } }) {
-  const res = await fetch(`https://dummyjson.com/products/${params.id}`);
+interface Product {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  thumbnail: string;
+}
 
- if (!res.ok) { 
-    return <h1>Product not found</h1>;
- }
-  const product = await res.json();
+export default async function ProductDetails(props: { params: Promise<{ id: string }> }) {
+  const { id } = await props.params;
+
+  const res = await fetch(`https://dummyjson.com/products/${id}`, { cache: "no-store" });
+
+  if (!res.ok) {
+    return (
+      <div className="min-h-screen flex justify-center items-center">
+        <h1 className="text-2xl font-semibold text-red-600">Product not found</h1>
+      </div>
+    );
+  }
+
+  const product: Product = await res.json();
 
   return (
     <div className="min-h-screen flex justify-center items-center bg-gray-50 p-6">

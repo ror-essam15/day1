@@ -10,7 +10,7 @@ export default function Error({ error, reset }: { error: Error; reset: () => voi
         onClick={() => reset()}
         className="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition-all"
       >
-        حاول مرة أخرى
+       Try Again
       </button>
     </div>
   );

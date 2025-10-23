@@ -6,11 +6,14 @@ import { Tajawal } from "next/font/google";
 
 const tajawal = Tajawal({
   subsets: ["arabic"],
-  weight: ["400", "500", "700"], // درجات السماكة
+  weight: ["400", "500", "700"], 
 });
 export const metadata = {
-  title: "My Website",
+  title: "Pro-ducts",
   description: "Simple Next.js site",
+    icons: {
+    icon: "/favicon.ico",
+    }
 };
 
 export default function RootLayout({
