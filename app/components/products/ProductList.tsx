@@ -1,41 +1,14 @@
-"use client";
-import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 
-interface Product{
-    id:number;
-    title:string;
-    price:number;
-    thumbnail:string;
+interface Product {
+  id: number;
+  title: string;
+  price: number;
+  thumbnail: string;
 }
 
-export default function Products() {
-const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
-
- useEffect(()=>{
-const getProducts =async ()=> {
-    try{
-           const res = await fetch("https://dummyjson.com/products");
-        const data = await res.json();
-        setProducts(data.products);
-    }
-    catch(err){
-            console.error("Error fetching products:", err);
-    }
-    finally{
-          setLoading(false);
-    }
-};  getProducts();
-},[]);
-
- if (loading)
-      return (
-      <div className="text-center py-10 text-lg font-semibold text-gray-600">
-        Loading products...
-      </div>
-    );
-
+export default function ProductList({ products }: { products: Product[] }) {
   return (
     <div className="max-w-6xl mx-auto px-6 py-10">
       <h1 className="text-3xl font-bold text-center mb-10">Our Products</h1>
@@ -46,11 +19,14 @@ const getProducts =async ()=> {
             key={product.id}
             className="bg-white shadow-md rounded-xl p-4 hover:shadow-lg transition"
           >
-            <img
+            <Image
               src={product.thumbnail}
               alt={product.title}
+              width={400}
+              height={300}
               className="w-full h-48 object-cover rounded-md"
             />
+
             <h2 className="text-lg font-semibold mt-3">{product.title}</h2>
             <p className="text-gray-600">${product.price}</p>
 
