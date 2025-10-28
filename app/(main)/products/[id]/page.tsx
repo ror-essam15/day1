@@ -13,21 +13,35 @@ async function getSingleProduct(id: string): Promise<Product> {
   if (!res.ok) {
     throw new Error("Product not found");
   }
-
   return res.json();
 }
+
+//to show product's title on tab 
+export async function generateMetadata(
+  context: { params: Promise<{ id: string }> } //  Promise
+) {
+  const { id } = await context.params; // await 
+
+  const product = await getSingleProduct(id);
+
+  return {
+    title: product.title,
+    description: product.description,
+  };
+}
+
+
 
 async function getAllProducts(): Promise<Product[]> {
   const res = await fetch("https://dummyjson.com/products");
   if (!res.ok) throw new Error("Failed to fetch products");
   const data = await res.json();
-  console.log("Products fetched:", data);
-  return data;
+  return data.products; 
 }
+
 
 export async function generateStaticParams() {
   const products = await getAllProducts();
-
 
   if (!Array.isArray(products)) {
     console.error(" Expected an array but got:", products);

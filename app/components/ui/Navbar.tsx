@@ -9,10 +9,11 @@ export default function Navbar() {
 
   const links = [
     { href: "/", label: "Home" },
-    { href: "/about", label: "About" },
     { href: "/products", label: "Products" },
-    { href: "/contact", label: "Contact" },
     { href: "/users", label: "Users" },
+    { href: "/todos", label: "Todos" },
+    { href: "/about", label: "About" },
+    { href: "/contact", label: "Contacts" },
   ];
 
   return (
@@ -27,11 +28,10 @@ export default function Navbar() {
             <li key={link.href}>
               <Link
                 href={link.href}
-                className={`transition ${
-                  pathname === link.href
+                className={`transition ${pathname === link.href
                     ? "text-yellow-400 border-b-2 border-yellow-400 pb-1"
                     : "hover:text-yellow-300"
-                }`}
+                  }`}
               >
                 {link.label}
               </Link>
